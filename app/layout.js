@@ -1,33 +1,30 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { ViewTransitions } from "next-view-transitions";
+import ClientLayout from "@/client-layout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
 export const metadata = {
-    title: "Polite Chaos",
-    description: "MWT by NBDEV",
-    icons: {
-        icon: "/site-logo.png",
-        shortcut: "/site-logo.png",
-        apple: "/site-logo.png",
-    },
+  title: "Polite Chaos",
+  description: "MWT by NBDEV",
+  icons: {
+    icon: "/site-logo.png",
+    shortcut: "/site-logo.png",
+    apple: "/site-logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${spaceGrotesk.className}  antialiased`}>
+        <ViewTransitions>
+          <ClientLayout>{children}</ClientLayout>
+        </ViewTransitions>
       </body>
     </html>
   );
