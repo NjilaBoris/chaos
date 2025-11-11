@@ -3,8 +3,8 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Copy from "@/components/Copy";
+import Preloader, { isInitialLoad } from "@/components/Preloader";
 const Home = () => {
-  const isInitialLoad = true;
   useEffect(() => {
     const rafId = requestAnimationFrame(() => {
       ScrollTrigger.refresh(true);
@@ -20,6 +20,7 @@ const Home = () => {
   }, []);
   return (
     <>
+      <Preloader />
       <section className="hero relative w-full h-dvh bg-base-100 overflow-hidden">
         <div className="container flex justify-center items-end">
           <div className="hero-content-main w-[65%] h-full flex flex-col justify-between items-center text-center">
