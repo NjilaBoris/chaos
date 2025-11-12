@@ -1,5 +1,5 @@
 "use client";
-
+import "./Copy.css";
 import React, { useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -14,11 +14,37 @@ export default function Copy({ children, animateOnScroll = true, delay = 0 }) {
   const splitRefs = useRef([]);
   const lines = useRef([]);
 
+  const waitForFonts = async () => {
+    try {
+      await document.fonts.ready;
+
+      const customFonts = [
+        "Geist Mono",
+        "PP Neue Montreal",
+        "PP Pangram Sans",
+        "Big Shoulders Display",
+      ];
+      const fontCheckPromises = customFonts.map((fontFamily) => {
+        return document.fonts.check(`16px ${fontFamily}`);
+      });
+
+      await Promise.all(fontCheckPromises);
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      return true;
+    } catch (error) {
+      await new Promise((resolve) => setTimeout(resolve, 200));
+      return true;
+    }
+  };
+
   useGSAP(
     () => {
       if (!containerRef.current) return;
 
       const initializeSplitText = async () => {
+        await waitForFonts();
+
         splitRefs.current = [];
         lines.current = [];
         elementRefs.current = [];
@@ -89,7 +115,7 @@ export default function Copy({ children, animateOnScroll = true, delay = 0 }) {
         });
       };
     },
-    { scope: containerRef, dependencies: [animateOnScroll, delay] },
+    { scope: containerRef, dependencies: [animateOnScroll, delay] }
   );
 
   if (React.Children.count(children) === 1) {

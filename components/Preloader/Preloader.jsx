@@ -1,5 +1,5 @@
 "use client";
-
+import "./Preloader.css";
 import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -39,7 +39,25 @@ const Preloader = () => {
       if (!showPreloader) return;
       setLoaderAnimating(true);
 
+      const waitForFonts = async () => {
+        try {
+          await document.fonts.ready;
+          const customFonts = ["Big Shoulders Display"];
+          const fontCheckPromises = customFonts.map((fontFamily) => {
+            return document.fonts.check(`16px ${fontFamily}`);
+          });
+          await Promise.all(fontCheckPromises);
+          await new Promise((resolve) => setTimeout(resolve, 100));
+          return true;
+        } catch (error) {
+          await new Promise((resolve) => setTimeout(resolve, 200));
+          return true;
+        }
+      };
+
       const initializeAnimation = async () => {
+        await waitForFonts();
+
         gsap.set(".preloader-header h1", { opacity: 0 });
 
         const preloaderHeaderSplit = SplitText.create(".preloader-header h1", {
@@ -58,7 +76,7 @@ const Preloader = () => {
 
         const preloaderImages = gsap.utils.toArray(".preloader-images .img");
         const preloaderImagesInner = gsap.utils.toArray(
-          ".preloader-images .img img",
+          ".preloader-images .img img"
         );
 
         const tl = gsap.timeline({ delay: 0.25 });
@@ -84,7 +102,7 @@ const Preloader = () => {
               ease: "hop",
               delay: index * 0.75,
             },
-            "-=5",
+            "-=5"
           );
         });
 
@@ -97,7 +115,7 @@ const Preloader = () => {
               ease: "hop",
               delay: index * 0.75,
             },
-            "-=5.25",
+            "-=5.25"
           );
         });
 
@@ -109,7 +127,7 @@ const Preloader = () => {
             ease: "hop",
             stagger: 0.025,
           },
-          "-=5",
+          "-=5"
         );
 
         tl.to(
@@ -119,7 +137,7 @@ const Preloader = () => {
             duration: 1,
             ease: "hop",
           },
-          "-=1.5",
+          "-=1.5"
         );
 
         tl.to(
@@ -130,7 +148,7 @@ const Preloader = () => {
             ease: "hop",
             stagger: 0.025,
           },
-          "-=2.5",
+          "-=2.5"
         );
 
         tl.to(
@@ -149,13 +167,13 @@ const Preloader = () => {
               }, 100);
             },
           },
-          "-=0.5",
+          "-=0.5"
         );
       };
 
       initializeAnimation();
     },
-    { scope: preloaderRef, dependencies: [showPreloader] },
+    { scope: preloaderRef, dependencies: [showPreloader] }
   );
 
   if (!showPreloader) {

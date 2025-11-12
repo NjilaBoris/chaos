@@ -1,5 +1,5 @@
 "use client";
-
+import "./Menu.css";
 import { useRef, useState, useEffect } from "react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/all";
@@ -112,7 +112,7 @@ const Menu = ({ pageRef }) => {
       gsap.set(linkHighlighter, { y: "150%" });
 
       const defaultLinkText = menuLinksWrapper.querySelector(
-        ".menu-link:first-child a span",
+        ".menu-link:first-child a span"
       );
       if (defaultLinkText) {
         const linkWidth = defaultLinkText.offsetWidth;
@@ -121,7 +121,7 @@ const Menu = ({ pageRef }) => {
         targetHighlighterWidth.current = linkWidth;
 
         const defaultLinkTextElement = menuLinksWrapper.querySelector(
-          ".menu-link:first-child",
+          ".menu-link:first-child"
         );
         const linkRect = defaultLinkTextElement.getBoundingClientRect();
         const menuWrapperRect = menuLinksWrapper.getBoundingClientRect();
@@ -231,7 +231,7 @@ const Menu = ({ pageRef }) => {
 
       const handleMenuLinksWrapperMouseLeave = () => {
         const defaultLinkText = menuLinksWrapper.querySelector(
-          ".menu-link:first-child",
+          ".menu-link:first-child"
         );
         if (!defaultLinkText) return;
 
@@ -248,7 +248,7 @@ const Menu = ({ pageRef }) => {
       menuOverlay.addEventListener("mousemove", handleMouseMove);
       menuLinksWrapper.addEventListener(
         "mouseleave",
-        handleMenuLinksWrapperMouseLeave,
+        handleMenuLinksWrapperMouseLeave
       );
 
       const animate = () => {
@@ -285,7 +285,7 @@ const Menu = ({ pageRef }) => {
         menuOverlay.removeEventListener("mousemove", handleMouseMove);
         menuLinksWrapper.removeEventListener(
           "mouseleave",
-          handleMenuLinksWrapperMouseLeave,
+          handleMenuLinksWrapperMouseLeave
         );
 
         menuLinkContainers.forEach((link) => {
@@ -304,7 +304,7 @@ const Menu = ({ pageRef }) => {
         splitTextInstances.current = [];
       };
     },
-    { scope: menuOverlayRef },
+    { scope: menuOverlayRef }
   );
 
   useEffect(() => {
@@ -568,7 +568,7 @@ const Menu = ({ pageRef }) => {
                 }
                 navigateWithTransition(
                   item.route,
-                  isMenuOpen ? toggleMenu : null,
+                  isMenuOpen ? toggleMenu : null
                 );
               }}
             >
